@@ -203,7 +203,7 @@ public final class ParkingSpeechlet implements Speechlet
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
         
-        
+        async.submit(this::sendPushNotification);
         
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
