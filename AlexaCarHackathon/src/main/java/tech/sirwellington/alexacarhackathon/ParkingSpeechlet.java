@@ -27,7 +27,7 @@ import tech.aroma.client.Aroma;
  *
  * @author SirWellington
  */
-class ParkingSpeechlet implements Speechlet
+public class ParkingSpeechlet implements Speechlet
 {
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechlet.class);
     
