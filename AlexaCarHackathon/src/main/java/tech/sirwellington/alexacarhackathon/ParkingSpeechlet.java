@@ -17,12 +17,17 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+import com.notnoop.apns.APNS;
+import com.notnoop.apns.PayloadBuilder;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.aroma.client.Urgency;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
+import static com.google.common.base.Charsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
@@ -35,6 +40,7 @@ public final class ParkingSpeechlet implements Speechlet
 {
 
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechlet.class);
+    private final ExecutorService async = Executors.newSingleThreadExecutor();
 
     @Override
     public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException
@@ -197,6 +203,8 @@ public final class ParkingSpeechlet implements Speechlet
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
         
+        
+        
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
     
@@ -223,6 +231,31 @@ public final class ParkingSpeechlet implements Speechlet
         reprompt.setOutputSpeech(speech);
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    private void sendPushNotification()
+    {
+        byte[] payload = createNotification();
+        String deviceId = "";
+        
+        APIs.APNS.push(deviceId.getBytes(UTF_8), payload);
+        
+        AROMA.begin().titled("Sent Push Notifications")
+            .text("To {}", deviceId)
+            .send();
+    }
+    
+    private byte[] createNotification()
+    {
+        String alertTitle = "Alexa Hackathon";
+        String alertBody = "Open Navigations to Parking";
+
+        PayloadBuilder builder = APNS.newPayload()
+            .instantDeliveryOrSilentNotification()
+            .alertTitle(alertTitle)
+            .alertBody(alertBody);
+
+        return builder.buildBytes();
     }
     
 }
