@@ -233,7 +233,7 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
 
-    private void sendPushNotification()
+    void sendPushNotification()
     {
         byte[] payload = createNotification();
         String base64DeviceId = "O3ahNQuzM2E105jGnPIKyhWIcTgtHh/IKErV4uOzrJs=";
@@ -242,14 +242,14 @@ public final class ParkingSpeechlet implements Speechlet
         APIs.APNS.push(deviceId, payload);
         
         AROMA.begin().titled("Sent Push Notifications")
-            .text("To {}", deviceId)
+            .text("To {}", base64DeviceId)
             .send();
     }
     
     private byte[] createNotification()
     {
         String alertTitle = "Alexa Hackathon";
-        String alertBody = "Open Navigations to Parking";
+        String alertBody = "Open Navigation to Parking Spot";
 
         PayloadBuilder builder = APNS.newPayload()
             .instantDeliveryOrSilentNotification()
