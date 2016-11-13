@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		326C7D6C1DD7ECFA0011F3B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */; };
+		326C7D6E1DD7ECFA0011F3B8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */; };
+		326C7D711DD7ECFA0011F3B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 326C7D6F1DD7ECFA0011F3B8 /* Main.storyboard */; };
+		326C7D731DD7ECFA0011F3B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 326C7D721DD7ECFA0011F3B8 /* Assets.xcassets */; };
+		326C7D761DD7ECFA0011F3B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 326C7D741DD7ECFA0011F3B8 /* LaunchScreen.storyboard */; };
+		326C7D811DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D801DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.swift */; };
+		326C7D8C1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D8B1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.swift */; };
+		326C7D9A1DD83AC50011F3B8 /* MojioStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D991DD83AC50011F3B8 /* MojioStruct.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		326C7D7D1DD7ECFA0011F3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 326C7D601DD7ECFA0011F3B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 326C7D671DD7ECFA0011F3B8;
+			remoteInfo = GATeamAmazonHackathon2016;
+		};
+		326C7D881DD7ECFA0011F3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 326C7D601DD7ECFA0011F3B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 326C7D671DD7ECFA0011F3B8;
+			remoteInfo = GATeamAmazonHackathon2016;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		326C7D681DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GATeamAmazonHackathon2016.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		326C7D701DD7ECFA0011F3B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		326C7D721DD7ECFA0011F3B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		326C7D751DD7ECFA0011F3B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		326C7D771DD7ECFA0011F3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326C7D7C1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GATeamAmazonHackathon2016Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		326C7D801DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATeamAmazonHackathon2016Tests.swift; sourceTree = "<group>"; };
+		326C7D821DD7ECFA0011F3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326C7D871DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GATeamAmazonHackathon2016UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		326C7D8B1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATeamAmazonHackathon2016UITests.swift; sourceTree = "<group>"; };
+		326C7D8D1DD7ECFA0011F3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326C7D991DD83AC50011F3B8 /* MojioStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MojioStruct.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		326C7D651DD7ECFA0011F3B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D791DD7ECFA0011F3B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D841DD7ECFA0011F3B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		326C7D5F1DD7ECFA0011F3B8 = {
+			isa = PBXGroup;
+			children = (
+				326C7D6A1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */,
+				326C7D7F1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests */,
+				326C7D8A1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests */,
+				326C7D691DD7ECFA0011F3B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		326C7D691DD7ECFA0011F3B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				326C7D681DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016.app */,
+				326C7D7C1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.xctest */,
+				326C7D871DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		326C7D6A1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */ = {
+			isa = PBXGroup;
+			children = (
+				326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */,
+				326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */,
+				326C7D991DD83AC50011F3B8 /* MojioStruct.swift */,
+				326C7D6F1DD7ECFA0011F3B8 /* Main.storyboard */,
+				326C7D721DD7ECFA0011F3B8 /* Assets.xcassets */,
+				326C7D741DD7ECFA0011F3B8 /* LaunchScreen.storyboard */,
+				326C7D771DD7ECFA0011F3B8 /* Info.plist */,
+			);
+			path = GATeamAmazonHackathon2016;
+			sourceTree = "<group>";
+		};
+		326C7D7F1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests */ = {
+			isa = PBXGroup;
+			children = (
+				326C7D801DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.swift */,
+				326C7D821DD7ECFA0011F3B8 /* Info.plist */,
+			);
+			path = GATeamAmazonHackathon2016Tests;
+			sourceTree = "<group>";
+		};
+		326C7D8A1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests */ = {
+			isa = PBXGroup;
+			children = (
+				326C7D8B1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.swift */,
+				326C7D8D1DD7ECFA0011F3B8 /* Info.plist */,
+			);
+			path = GATeamAmazonHackathon2016UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		326C7D671DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 326C7D901DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016" */;
+			buildPhases = (
+				326C7D641DD7ECFA0011F3B8 /* Sources */,
+				326C7D651DD7ECFA0011F3B8 /* Frameworks */,
+				326C7D661DD7ECFA0011F3B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GATeamAmazonHackathon2016;
+			productName = GATeamAmazonHackathon2016;
+			productReference = 326C7D681DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016.app */;
+			productType = "com.apple.product-type.application";
+		};
+		326C7D7B1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 326C7D931DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016Tests" */;
+			buildPhases = (
+				326C7D781DD7ECFA0011F3B8 /* Sources */,
+				326C7D791DD7ECFA0011F3B8 /* Frameworks */,
+				326C7D7A1DD7ECFA0011F3B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				326C7D7E1DD7ECFA0011F3B8 /* PBXTargetDependency */,
+			);
+			name = GATeamAmazonHackathon2016Tests;
+			productName = GATeamAmazonHackathon2016Tests;
+			productReference = 326C7D7C1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		326C7D861DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 326C7D961DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016UITests" */;
+			buildPhases = (
+				326C7D831DD7ECFA0011F3B8 /* Sources */,
+				326C7D841DD7ECFA0011F3B8 /* Frameworks */,
+				326C7D851DD7ECFA0011F3B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				326C7D891DD7ECFA0011F3B8 /* PBXTargetDependency */,
+			);
+			name = GATeamAmazonHackathon2016UITests;
+			productName = GATeamAmazonHackathon2016UITests;
+			productReference = 326C7D871DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		326C7D601DD7ECFA0011F3B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Cordero Hernandez";
+				TargetAttributes = {
+					326C7D671DD7ECFA0011F3B8 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 268HJM5ELZ;
+						ProvisioningStyle = Automatic;
+					};
+					326C7D7B1DD7ECFA0011F3B8 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 268HJM5ELZ;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 326C7D671DD7ECFA0011F3B8;
+					};
+					326C7D861DD7ECFA0011F3B8 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 268HJM5ELZ;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 326C7D671DD7ECFA0011F3B8;
+					};
+				};
+			};
+			buildConfigurationList = 326C7D631DD7ECFA0011F3B8 /* Build configuration list for PBXProject "GATeamAmazonHackathon2016" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 326C7D5F1DD7ECFA0011F3B8;
+			productRefGroup = 326C7D691DD7ECFA0011F3B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				326C7D671DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */,
+				326C7D7B1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests */,
+				326C7D861DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		326C7D661DD7ECFA0011F3B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				326C7D761DD7ECFA0011F3B8 /* LaunchScreen.storyboard in Resources */,
+				326C7D731DD7ECFA0011F3B8 /* Assets.xcassets in Resources */,
+				326C7D711DD7ECFA0011F3B8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D7A1DD7ECFA0011F3B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D851DD7ECFA0011F3B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		326C7D641DD7ECFA0011F3B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				326C7D6E1DD7ECFA0011F3B8 /* MapViewController.swift in Sources */,
+				326C7D9A1DD83AC50011F3B8 /* MojioStruct.swift in Sources */,
+				326C7D6C1DD7ECFA0011F3B8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D781DD7ECFA0011F3B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				326C7D811DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		326C7D831DD7ECFA0011F3B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				326C7D8C1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		326C7D7E1DD7ECFA0011F3B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 326C7D671DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */;
+			targetProxy = 326C7D7D1DD7ECFA0011F3B8 /* PBXContainerItemProxy */;
+		};
+		326C7D891DD7ECFA0011F3B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 326C7D671DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */;
+			targetProxy = 326C7D881DD7ECFA0011F3B8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		326C7D6F1DD7ECFA0011F3B8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				326C7D701DD7ECFA0011F3B8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		326C7D741DD7ECFA0011F3B8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				326C7D751DD7ECFA0011F3B8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		326C7D8E1DD7ECFA0011F3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		326C7D8F1DD7ECFA0011F3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		326C7D911DD7ECFA0011F3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		326C7D921DD7ECFA0011F3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		326C7D941DD7ECFA0011F3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GATeamAmazonHackathon2016.app/GATeamAmazonHackathon2016";
+			};
+			name = Debug;
+		};
+		326C7D951DD7ECFA0011F3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GATeamAmazonHackathon2016.app/GATeamAmazonHackathon2016";
+			};
+			name = Release;
+		};
+		326C7D971DD7ECFA0011F3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = GATeamAmazonHackathon2016;
+			};
+			name = Debug;
+		};
+		326C7D981DD7ECFA0011F3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				INFOPLIST_FILE = GATeamAmazonHackathon2016UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = GATeamAmazonHackathon2016;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		326C7D631DD7ECFA0011F3B8 /* Build configuration list for PBXProject "GATeamAmazonHackathon2016" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				326C7D8E1DD7ECFA0011F3B8 /* Debug */,
+				326C7D8F1DD7ECFA0011F3B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		326C7D901DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				326C7D911DD7ECFA0011F3B8 /* Debug */,
+				326C7D921DD7ECFA0011F3B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		326C7D931DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				326C7D941DD7ECFA0011F3B8 /* Debug */,
+				326C7D951DD7ECFA0011F3B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		326C7D961DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				326C7D971DD7ECFA0011F3B8 /* Debug */,
+				326C7D981DD7ECFA0011F3B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 326C7D601DD7ECFA0011F3B8 /* Project object */;
+}
