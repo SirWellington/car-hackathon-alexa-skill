@@ -25,8 +25,8 @@ import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
+import static com.amazon.speech.speechlet.SpeechletResponse.newTellResponse;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 
@@ -236,9 +236,15 @@ public final class ParkingSpeechlet implements Speechlet
         Gson gson = new Gson();
         JsonElement json = gson.toJsonTree(placeJson);
 
-        checkThat(json.isJsonObject())
-            .usingMessage("Unexpected JSON type: " + json)
-            .is(trueStatement());
+        if (!json.isJsonObject())
+        {
+            LOG.warn("Unexpected JSON type: " + json);
+            AROMA.begin().titled("Unexpected JSON")
+                .text("JSON of Type {}", json)
+                .send();
+            
+            return null;
+        }
 
         return ParkingStructure.fromJSON(json.getAsJsonObject());
     }
@@ -250,19 +256,20 @@ public final class ParkingSpeechlet implements Speechlet
             .send();
         
         ParkingStructure parking = getParkingFrom(session);
-
-        if (parking == null)
+        Location location = parking.getLocation() == null ? Location.DOWNTOWN_LA : parking.getLocation();
+        
+        if (location == null)
         {
             AROMA.begin().titled("Info Missing")
                 .text("Missing Parking information from session")
                 .send();
-
-            return SpeechletResponse.newTellResponse(new PlainTextOutputSpeech());
+            
+            return newTellResponse(new PlainTextOutputSpeech());
         }
 
         async.submit(() ->
             {
-                this.sendPushNotificationToNavigateTo(parking.getLocation());
+                this.sendPushNotificationToNavigateTo(location);
             });
         
         String message = "Ok. I sent navigation instructions to your phone.";

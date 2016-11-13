@@ -206,12 +206,15 @@ public class ParkingStructure
         checkThat(object.has(Keys.NAME))
             .is(trueStatement())
             .usingMessage("object missing name");
+        
         checkThat(object.has(Keys.STREET_ADDRESS))
             .is(trueStatement())
             .usingMessage("object missing street address");
+      
         checkThat(object.has(Keys.LATITUDE))
             .is(trueStatement())
             .usingMessage("object missing location information");
+       
         checkThat(object.has(Keys.LONGITUDE))
             .is(trueStatement())
             .usingMessage("object missing location information");

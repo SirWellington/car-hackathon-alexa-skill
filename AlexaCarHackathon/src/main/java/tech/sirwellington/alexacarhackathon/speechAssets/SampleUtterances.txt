@@ -27,7 +27,7 @@ BookIntent hells to the yea
 BookIntent yea
 BookIntent uh huh
 
-DirectionsIntent yes direct me
+DirectionsIntent direct me
 DirectionsIntent direct me place
 DirectionsIntent give me directions
 DirectionsIntent guide me
