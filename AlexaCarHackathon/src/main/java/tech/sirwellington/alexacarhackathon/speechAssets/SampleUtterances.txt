@@ -33,4 +33,4 @@ DirectionsIntent send me directions
 DirectionsIntent send me the directions
 DirectionsIntent give me directions
 DirectionsIntent guide me
-DirectionsIntent ok
+DirectionsIntent send it to me
