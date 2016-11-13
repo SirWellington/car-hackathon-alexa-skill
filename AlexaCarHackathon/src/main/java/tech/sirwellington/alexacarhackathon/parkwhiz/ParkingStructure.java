@@ -7,6 +7,7 @@
 package tech.sirwellington.alexacarhackathon.parkwhiz;
 
 import com.google.gson.JsonObject;
+import java.util.Objects;
 import tech.sirwellington.alchemy.annotations.arguments.Required;
 import tech.sirwellington.alchemy.annotations.objects.Pojo;
 
@@ -15,12 +16,11 @@ import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull
 
 /**
  *
- * This class contains the POJO representation of a Parking structure pulled form the 
+ * This class contains the POJO representation of a Parking structure pulled form the
  * <a href="http://www.parkwhiz.com/developers/">http://www.parkwhiz.com/developers/</a> ParkWhiz API.
- * 
- * P.S.
- * This is hackathon code. Be nice.
- * 
+ *
+ * P.S. This is hackathon code. Be nice.
+ *
  * @author SirWellington
  */
 @Pojo
@@ -38,19 +38,11 @@ public class ParkingStructure
     private int price;
     private String priceFormatted;
     private String reservationAPIURL;
-
-    public ParkingStructure()
-    {
-    }
+    private long distanceInFeet;
 
     public String getName()
     {
         return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
     }
 
     public String getStreetAddress()
@@ -58,19 +50,9 @@ public class ParkingStructure
         return streetAddress;
     }
 
-    public void setStreetAddress(String streetAddress)
-    {
-        this.streetAddress = streetAddress;
-    }
-
     public String getCity()
     {
         return city;
-    }
-
-    public void setCity(String city)
-    {
-        this.city = city;
     }
 
     public String getState()
@@ -78,19 +60,9 @@ public class ParkingStructure
         return state;
     }
 
-    public void setState(String state)
-    {
-        this.state = state;
-    }
-
     public int getZipCode()
     {
         return zipCode;
-    }
-
-    public void setZipCode(int zipCode)
-    {
-        this.zipCode = zipCode;
     }
 
     public Location getLocation()
@@ -98,19 +70,9 @@ public class ParkingStructure
         return location;
     }
 
-    public void setLocation(Location location)
-    {
-        this.location = location;
-    }
-
     public String getParkWhizURL()
     {
         return parkWhizURL;
-    }
-
-    public void setParkWhizURL(String parkWhizURL)
-    {
-        this.parkWhizURL = parkWhizURL;
     }
 
     public int getAvailableSpots()
@@ -118,19 +80,9 @@ public class ParkingStructure
         return availableSpots;
     }
 
-    public void setAvailableSpots(int availableSpots)
-    {
-        this.availableSpots = availableSpots;
-    }
-
     public int getPrice()
     {
         return price;
-    }
-
-    public void setPrice(int price)
-    {
-        this.price = price;
     }
 
     public String getPriceFormatted()
@@ -138,25 +90,106 @@ public class ParkingStructure
         return priceFormatted;
     }
 
-    public void setPriceFormatted(String priceFormatted)
-    {
-        this.priceFormatted = priceFormatted;
-    }
-
     public String getReservationAPIURL()
     {
         return reservationAPIURL;
     }
 
-    public void setReservationAPIURL(String reservationAPIURL)
+    public long getDistanceInFeet()
     {
-        this.reservationAPIURL = reservationAPIURL;
+        return distanceInFeet;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.name);
+        hash = 43 * hash + Objects.hashCode(this.streetAddress);
+        hash = 43 * hash + Objects.hashCode(this.city);
+        hash = 43 * hash + Objects.hashCode(this.state);
+        hash = 43 * hash + this.zipCode;
+        hash = 43 * hash + Objects.hashCode(this.location);
+        hash = 43 * hash + Objects.hashCode(this.parkWhizURL);
+        hash = 43 * hash + this.availableSpots;
+        hash = 43 * hash + this.price;
+        hash = 43 * hash + Objects.hashCode(this.priceFormatted);
+        hash = 43 * hash + Objects.hashCode(this.reservationAPIURL);
+        hash = 43 * hash + (int) (this.distanceInFeet ^ (this.distanceInFeet >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final ParkingStructure other = (ParkingStructure) obj;
+        if (this.zipCode != other.zipCode)
+        {
+            return false;
+        }
+        if (this.availableSpots != other.availableSpots)
+        {
+            return false;
+        }
+        if (this.price != other.price)
+        {
+            return false;
+        }
+        if (this.distanceInFeet != other.distanceInFeet)
+        {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.streetAddress, other.streetAddress))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.city, other.city))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.state, other.state))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.parkWhizURL, other.parkWhizURL))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.priceFormatted, other.priceFormatted))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.reservationAPIURL, other.reservationAPIURL))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location))
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString()
     {
-        return "ParkingStructure{" + "name=" + name + ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode + ", location=" + location + ", parkWhizURL=" + parkWhizURL + ", availableSpots=" + availableSpots + ", price=" + price + ", priceFormatted=" + priceFormatted + ", reservationAPIURL=" + reservationAPIURL + '}';
+        return "ParkingStructure{" + "name=" + name + ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode + ", location=" + location + ", parkWhizURL=" + parkWhizURL + ", availableSpots=" + availableSpots + ", price=" + price + ", priceFormatted=" + priceFormatted + ", reservationAPIURL=" + reservationAPIURL + ", distanceInFeet=" + distanceInFeet + '}';
     }
 
     public static ParkingStructure fromJSON(@Required JsonObject object)
@@ -186,7 +219,6 @@ public class ParkingStructure
         parking.location = location;
         parking.price = object.get(Keys.PRICE).getAsInt();
     }
-
 
     private static class Keys
     {
