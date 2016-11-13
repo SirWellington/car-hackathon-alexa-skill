@@ -5,7 +5,7 @@
  */
 
  
-package tech.sirwellington.steelcars.alexacarhackathon;
+package tech.sirwellington.alexacarhackathon;
 
 
 import com.amazon.speech.speechlet.IntentRequest;
@@ -60,6 +60,7 @@ class ParkingSpeechlet implements Speechlet
             .titled("Speechlet Launched")
             .text("Intent: {}\nSession ID: {}", request.getIntent(), session.getSessionId())
             .send();
+        
         return createWelcomeMessage();
     }
 
@@ -79,11 +80,11 @@ class ParkingSpeechlet implements Speechlet
      */
     private SpeechletResponse createWelcomeMessage()
     {
-        String speechText = "Welcome to the Alexa Skills Kit, you can say hello";
+        String speechText = "Welcome to the Alexa Car Hackathon. My name is Bender.";
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
-        card.setTitle("HelloWorld");
+        card.setTitle("ParkMe");
         card.setContent(speechText);
 
         // Create the plain text output.

@@ -5,7 +5,7 @@
  */
 
  
-package tech.sirwellington.steelcars.alexacarhackathon;
+package tech.sirwellington.alexacarhackathon;
 
 
 import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler;
