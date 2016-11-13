@@ -216,7 +216,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         String message = "Ok. I sent navigation instructions to your phone.";
         AROMA.begin().titled("Direction Notification Sent")
-            .text("To Location: \n{}", location)
+            .text("To Location: \n{}Place: {}", location, parking)
             .send();
 
         SimpleCard card = new SimpleCard();
