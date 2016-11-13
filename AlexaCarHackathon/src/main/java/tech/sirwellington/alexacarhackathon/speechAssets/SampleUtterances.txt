@@ -11,6 +11,8 @@ ParkMeIntent what is the nearest parking spot
 ParkMeIntent I need to park
 ParkMeIntent I need to park my car
 ParkMeIntent Help me find parking
+ParkMeIntent Help me park
+ParkMeIntent Park me
 
 BookIntent yes
 BookIntent sure
