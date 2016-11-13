@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3253B3D01DD851E5007F507D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3253B3CF1DD851E5007F507D /* ViewController.swift */; };
 		326C7D6C1DD7ECFA0011F3B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */; };
 		326C7D6E1DD7ECFA0011F3B8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */; };
 		326C7D711DD7ECFA0011F3B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 326C7D6F1DD7ECFA0011F3B8 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3253B3CF1DD851E5007F507D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		326C7D681DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GATeamAmazonHackathon2016.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */,
+				3253B3CF1DD851E5007F507D /* ViewController.swift */,
 				326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */,
 				326C7D991DD83AC50011F3B8 /* MojioStruct.swift */,
 				326C7D6F1DD7ECFA0011F3B8 /* Main.storyboard */,
@@ -267,6 +270,7 @@
 			files = (
 				326C7D6E1DD7ECFA0011F3B8 /* MapViewController.swift in Sources */,
 				326C7D9A1DD83AC50011F3B8 /* MojioStruct.swift in Sources */,
+				3253B3D01DD851E5007F507D /* ViewController.swift in Sources */,
 				326C7D6C1DD7ECFA0011F3B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +524,7 @@
 				326C7D921DD7ECFA0011F3B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		326C7D931DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016Tests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +533,7 @@
 				326C7D951DD7ECFA0011F3B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		326C7D961DD7ECFA0011F3B8 /* Build configuration list for PBXNativeTarget "GATeamAmazonHackathon2016UITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +542,7 @@
 				326C7D981DD7ECFA0011F3B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

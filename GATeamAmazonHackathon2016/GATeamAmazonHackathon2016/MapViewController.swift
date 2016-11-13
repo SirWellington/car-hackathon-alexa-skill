@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import MapKit
 import CoreLocation
 
@@ -15,6 +16,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet weak var mapView: MKMapView!
     var locationManager: CLLocationManager!
+    
     
     var urlString: String = ""
     var mojioObject: [Mojio] = []
@@ -26,6 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         return operationQ
     }()
+    
     
     func connectToMojio() {
         
@@ -69,6 +72,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.delegate = self
         mapView.showsUserLocation = true
         
+        setRegion()
+        mapView.addAnnotation(TheLaxCoordinate())
+        
     }
     
     
@@ -97,6 +103,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // Dispose of any resources that can be recreated.
     }
     
+    // LAX Annotation
+    
+    static let laxCoordinates = CLLocationCoordinate2DMake(33.9416, -118.4085)
+   
+    
+    
+    func setRegion() {
+        
+        let laxLatSpan: CLLocationDegrees = 0.05
+        let laxLongSpan: CLLocationDegrees = 0.05
+        let laxSpan = MKCoordinateSpanMake(laxLatSpan, laxLongSpan)
+        let laxRegion = MKCoordinateRegionMake(MapViewController.laxCoordinates, laxSpan)
+        self.mapView.setRegion(laxRegion, animated: true)
+        
+    }
+
+    class TheLaxCoordinate: NSObject, MKAnnotation {
+        
+        var coordinate: CLLocationCoordinate2D = laxCoordinates
+        var title: String? = "LAX"
+        var subtitle: String? = "Los Angeles, CA"
+    }
+    
     
 }
+
 

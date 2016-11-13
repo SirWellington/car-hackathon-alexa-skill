@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VsH-Nk-cHn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11760" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lBm-i2-jgk">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11755"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="GATeamAmazonHackathon2016" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,7 +21,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-oK-S1w"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-oK-S1w">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -35,25 +40,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165.5999999999999" y="136.28185907046478"/>
+            <point key="canvasLocation" x="2892" y="135.38230884557723"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1L3-sL-3Jq">
+            <objects>
+                <viewController id="Ef3-4M-AYb" customClass="ViewController" customModule="GATeamAmazonHackathon2016" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="COM-TL-G9G"/>
+                        <viewControllerLayoutGuide type="bottom" id="6LF-54-fYW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mud-3M-45S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A79-aZ-nh4">
+                                <rect key="frame" x="149" y="310" width="77" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="5KZ-ps-ZJs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Maps"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="cas-Pv-aQr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="A79-aZ-nh4" firstAttribute="centerX" secondItem="Mud-3M-45S" secondAttribute="centerX" id="Q1f-yc-3sy"/>
+                            <constraint firstItem="A79-aZ-nh4" firstAttribute="top" secondItem="COM-TL-G9G" secondAttribute="bottom" constant="246" id="Y5e-Lo-h5h"/>
+                            <constraint firstItem="A79-aZ-nh4" firstAttribute="centerY" secondItem="Mud-3M-45S" secondAttribute="centerY" id="nbx-Ow-gH5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="B1m-Up-1bb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lNx-E4-o7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1988" y="134.48275862068968"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="nfR-gO-0h5">
+        <scene sceneID="CjA-Ae-wXx">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VsH-Nk-cHn" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lBm-i2-jgk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WeY-Zs-6tH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qwk-Pb-59d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7sK-0s-JdE"/>
+                        <segue destination="Ef3-4M-AYb" kind="relationship" relationship="rootViewController" id="QyC-m4-iEa"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SOi-w9-5MM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d9o-SK-NOL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="191" y="137"/>
+            <point key="canvasLocation" x="1048.8" y="134.48275862068968"/>
         </scene>
     </scenes>
 </document>

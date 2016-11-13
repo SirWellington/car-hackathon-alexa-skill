@@ -11,16 +11,16 @@ import UIKit
 
 struct Mojio {
     
-    let location: NSDictionary
+    let location: String
     let lat: Double
     let long: Double
     
     
     static func from(dictionary: NSDictionary) -> Mojio? {
         
-        guard let location = dictionary ["Location"] as? NSDictionary,
-        let lat = dictionary ["Lat"] as? NSDictionary,
-            let long = dictionary ["Lng"] as? NSDictionary else { return nil }
+        guard let location = dictionary ["Location"] as? String,
+        let lat = dictionary ["Lat"] as? Double,
+            let long = dictionary ["Lng"] as? Double else { return nil }
         
         return Mojio(location: location, lat: lat, long: long)
         
