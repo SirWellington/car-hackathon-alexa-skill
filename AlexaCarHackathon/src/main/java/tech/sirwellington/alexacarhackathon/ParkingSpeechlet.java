@@ -114,9 +114,9 @@ public final class ParkingSpeechlet implements Speechlet
             return createOperationFailedMessage();
         }
 
-        String speechText = "I found a spot named " + parking.getName() + " .";
+        String speechText = "I found a spot named " + parking.getName() + " . ";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
-        speechText += "and costs " + parking.getPrice()+ "dollars.";
+        speechText += "and costs " + parking.getPrice()+ "dollars. ";
         speechText += "Do you want to park there?";
         
         String repromptText = "Do you want to park there? Say yes or no.";
@@ -178,10 +178,10 @@ public final class ParkingSpeechlet implements Speechlet
     
     private SpeechletResponse createMessageToBook()
     {
-        String speechText = "Ok. I have reserved a spot for you using your credit card.";
-        speechText += "Would you like directions to your parking spot?";
+        String speechText = "Ok. I have reserved a spot for you using your credit card. ";
+        speechText += "Would you like directions to your parking spot? ";
         
-        String repromtText= "Would you like directions to your parking spot? Say yes or no.";
+        String repromtText= "Would you like directions to your parking spot? Say yes or no. ";
         
         SimpleCard card = new SimpleCard();
         card.setTitle("ParkMe");
