@@ -1,3 +1,4 @@
+
 package tech.sirwellington.alexacarhackathon;
 
 import com.amazon.speech.speechlet.IntentRequest;
@@ -208,7 +209,7 @@ public final class ParkingSpeechlet implements Speechlet
     }
 
     private String createSpeechTextFor(ParkingStructure parking)
-    { 
+    {
         String speechText = "I found a spot named " + parking.getName() + " . ";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
         speechText += "and costs " + parking.getPrice() + " dollars. ";
@@ -242,7 +243,7 @@ public final class ParkingSpeechlet implements Speechlet
             AROMA.begin().titled("Unexpected JSON")
                 .text("JSON of Type {}", json)
                 .send();
-            
+
             return null;
         }
 
@@ -254,16 +255,16 @@ public final class ParkingSpeechlet implements Speechlet
         AROMA.begin()
             .titled("Received Directions Intent")
             .send();
-        
+
         ParkingStructure parking = getParkingFrom(session);
         Location location = parking.getLocation() == null ? Location.DOWNTOWN_LA : parking.getLocation();
-        
+
         if (location == null)
         {
             AROMA.begin().titled("Info Missing")
                 .text("Missing Parking information from session")
                 .send();
-            
+
             return newTellResponse(new PlainTextOutputSpeech());
         }
 
@@ -271,12 +272,17 @@ public final class ParkingSpeechlet implements Speechlet
             {
                 this.sendPushNotificationToNavigateTo(location);
             });
-        
+
         String message = "Ok. I sent navigation instructions to your phone.";
+
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(message);
+
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(message);
-        
-        return SpeechletResponse.newTellResponse(speech);
+
+        return SpeechletResponse.newTellResponse(speech, card);
     }
 
     /**
