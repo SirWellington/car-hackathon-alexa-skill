@@ -76,6 +76,8 @@ public final class ParkingSpeechlet implements Speechlet
                 return createParkMeMessage();
             case "HelloIntent":
                 return createHelloMessage();
+            case "BookIntent":
+                return createMessageToBook();
         }
 
         return createWelcomeMessage();
@@ -172,7 +174,27 @@ public final class ParkingSpeechlet implements Speechlet
 
         return SpeechletResponse.newTellResponse(speech, card);
     }
-
+    
+    private SpeechletResponse createMessageToBook()
+    {
+        String speechText = "Ok. I have reserved a spot for you using your credit card.";
+        String repromtText= "Would you like directions to your parking spot?";
+        
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+        
+        PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
+        responseSpeech.setText(speechText);
+        
+        PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
+        responseSpeech.setText(repromtText);
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(repromptSpeech);
+        
+        return SpeechletResponse.newAskResponse(repromptSpeech, reprompt, card);
+    }
+    
     /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *
@@ -197,5 +219,5 @@ public final class ParkingSpeechlet implements Speechlet
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
-
+    
 }
