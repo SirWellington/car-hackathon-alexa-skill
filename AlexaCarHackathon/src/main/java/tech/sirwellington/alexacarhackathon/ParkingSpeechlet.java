@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 
- 
 package tech.sirwellington.alexacarhackathon;
-
 
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
@@ -23,16 +21,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.aroma.client.Aroma;
 
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
+
 /**
  *
  * @author SirWellington
  */
 public final class ParkingSpeechlet implements Speechlet
 {
+
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechlet.class);
-    
+
     private final Aroma aroma = Aroma.create("d4592e6b-cb53-4dea-945d-52043abbec84");
- 
+
     @Override
     public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException
     {
@@ -49,7 +51,7 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Speechlet Launched")
             .text("Request ID: {}\nSessionID: {}", request.getRequestId(), session.getSessionId())
             .send();
-        
+
         return createWelcomeMessage();
     }
 
@@ -60,7 +62,21 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Speechlet Launched")
             .text("Intent: {}\nSession ID: {}", request.getIntent(), session.getSessionId())
             .send();
-        
+
+        String intent = request.getIntent().getName();
+
+        checkThat(intent).is(nonEmptyString())
+            .throwing(SpeechletException.class)
+            .usingMessage("Intent missing");
+
+        switch (intent)
+        {
+            case "ParkMeIntent":
+                return createParkMeMessage();
+            case "HelloIntent":
+                return createHelloMessage();
+        }
+
         return createWelcomeMessage();
     }
 
@@ -72,8 +88,48 @@ public final class ParkingSpeechlet implements Speechlet
             .text("Session ID: {}", session.getSessionId())
             .send();
     }
-    
-     /**
+
+    private SpeechletResponse createParkMeMessage()
+    {
+        String speechText = "My name is Bender, and I will help you find parking.";
+
+        // Create the Simple card content.
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        // Create reprompt
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(speech);
+
+        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    private SpeechletResponse createHelloMessage()
+    {
+        String speechText = "Bender here. What's shaking?";
+
+        // Create the Simple card content.
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        // Create reprompt
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(speech);
+
+        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *
      * @return SpeechletResponse spoken and visual response for the given intent
