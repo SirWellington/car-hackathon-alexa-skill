@@ -8,8 +8,7 @@ import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.GenerateDouble;
 import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static tech.sirwellington.alchemy.test.junit.runners.GenerateDouble.Type.RANGE;
 
@@ -44,8 +43,8 @@ public class ParkWhizAPITest
     @Test
     public void testGetParkingNear() throws Exception
     {
-        String name = ParkWhizAPI.getParkingNear(location);
-        assertThat(name, not(isEmptyOrNullString()));
+        ParkingStructure parking = ParkWhizAPI.getParkingNear(location);
+        assertThat(parking, notNullValue());
     }
 
 }

@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.aroma.client.Urgency;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
+import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
@@ -91,10 +92,10 @@ public final class ParkingSpeechlet implements Speechlet
 
     private SpeechletResponse createParkMeMessage()
     {
-        String parkingName;
+        ParkingStructure parking;
         try
         {
-            parkingName = ParkWhizAPI.getParkingNear(null);
+            parking = ParkWhizAPI.getParkingNear(null);
         }
         catch (Exception ex)
         {
@@ -102,11 +103,18 @@ public final class ParkingSpeechlet implements Speechlet
                 .text("Could not find nearby parking locations: {}", ex)
                 .withUrgency(Urgency.HIGH)
                 .send();
-            
+
             return createOperationFailedMessage();
         }
-        
-        String speechText = "I found a spot named " + parkingName + ".";
+
+        if (parking == null)
+        {
+            return createOperationFailedMessage();
+        }
+
+        String speechText = "I found a spot named " + parking.getName() + ".";
+        speechText += "It is " + parking.getDistanceInMeters() + " meters away ";
+        speechText += "and costs " + parking.getPriceFormatted() + ".";
         speechText += "Do you want to park there?";
 
         // Create the Simple card content.
@@ -160,7 +168,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         return SpeechletResponse.newTellResponse(speech, card);
     }
-    
+
     /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *

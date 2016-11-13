@@ -26,7 +26,7 @@ public final class ParkWhizAPI
 
     private final static Logger LOG = LoggerFactory.getLogger(ParkWhizAPI.class);
 
-    public static String getParkingNear(Location location) throws Exception
+    public static ParkingStructure getParkingNear(Location location) throws Exception
     {
         String link = "http://api.parkwhiz.com/search/?key=cbe9b407cf97223dc1fd051550396e53&lat=34.0522&lng=-118.2437";
 
@@ -64,7 +64,7 @@ public final class ParkWhizAPI
                 .withUrgency(Urgency.HIGH)
                 .send();
 
-            return "";
+            return null;
         }
         
         JsonElement firstElement = listings.get(0);
@@ -78,7 +78,6 @@ public final class ParkWhizAPI
             .text(firstParkingStructure.toString())
             .send();
         
-        String name = firstParkingStructure.getName();
-        return name;
+        return firstParkingStructure;
     }
 }

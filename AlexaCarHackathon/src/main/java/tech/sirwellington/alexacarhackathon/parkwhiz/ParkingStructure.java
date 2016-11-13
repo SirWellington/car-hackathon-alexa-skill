@@ -99,6 +99,11 @@ public class ParkingStructure
     {
         return distanceInFeet;
     }
+    
+    public long getDistanceInMeters()
+    {
+        return (long) (distanceInFeet * 0.3048);
+    }
 
     @Override
     public int hashCode()
@@ -218,6 +223,17 @@ public class ParkingStructure
         location.longitude = object.get(Keys.LONGITUDE).getAsDouble();
         parking.location = location;
         parking.price = object.get(Keys.PRICE).getAsInt();
+
+        if (object.has(Keys.DISTANCE))
+        {
+            parking.distanceInFeet = object.get(Keys.DISTANCE).getAsLong();
+        }
+
+        if (object.has(Keys.FORMATTED_PRICE))
+        {
+            parking.priceFormatted = object.get(Keys.FORMATTED_PRICE).getAsString();
+        }
+
     }
 
     private static class Keys
