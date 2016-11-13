@@ -92,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        onNewLocation?(coordinate)
         
         openLocation(coordinate)
+//        openInWaze(coordinate)
         
         print("Here we go: \(jsonDictionary)")
         
@@ -101,6 +102,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     
     }
+    
+//    private func openInWaze(_ coordinate: CLLocationCoordinate2D) {
+//        
+//        let request = "waze://?ll=<\(coordinate.latitude),\(coordinate.longitude)&navigate=yes"
+//        
+//        guard let url = URL(string: request) else { return }
+//        
+//        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        
+//    }
     
     private func openLocation(_ coordinate: CLLocationCoordinate2D) {
         
