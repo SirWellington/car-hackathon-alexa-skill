@@ -35,7 +35,7 @@ public class ParkWhizAPITest
 
     private void setupData() throws Exception
     {
-        location = new Location(latitude, longitude);
+        location = Location.DOWNTOWN_LA;
     }
 
     @Test

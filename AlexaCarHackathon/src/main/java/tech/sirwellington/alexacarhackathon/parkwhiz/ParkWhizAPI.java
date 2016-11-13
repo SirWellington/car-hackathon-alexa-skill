@@ -102,7 +102,8 @@ public final class ParkWhizAPI
             .usingMessage("Expected JSON Object, intead is: " + response);
 
         JsonObject object = response.getAsJsonObject();
-        checkThat(object.has("parking_listing"))
+        checkThat(object.has("parking_listings"))
+            .is(trueStatement())
             .usingMessage("JSON Object missing parking listsings: " + object);
 
         JsonArray listings = object.get("parking_listings").getAsJsonArray();
