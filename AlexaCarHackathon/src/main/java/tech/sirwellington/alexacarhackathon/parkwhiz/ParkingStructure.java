@@ -233,6 +233,11 @@ public class ParkingStructure
         {
             parking.priceFormatted = object.get(Keys.FORMATTED_PRICE).getAsString();
         }
+        
+        if (object.has(Keys.AVAILABLE_SPOTS))
+        {
+            parking.availableSpots = object.get(Keys.AVAILABLE_SPOTS).getAsInt();
+        }
 
     }
 
