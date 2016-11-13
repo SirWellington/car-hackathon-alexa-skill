@@ -19,6 +19,8 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.aroma.client.Urgency;
+import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
@@ -89,7 +91,23 @@ public final class ParkingSpeechlet implements Speechlet
 
     private SpeechletResponse createParkMeMessage()
     {
-        String speechText = "My name is Bender, and I will help you find parking.";
+        String parkingName;
+        try
+        {
+            parkingName = ParkWhizAPI.getParkingNear(null);
+        }
+        catch (Exception ex)
+        {
+            AROMA.begin().titled("Operation Failed")
+                .text("Could not find nearby parking locations: {}", ex)
+                .withUrgency(Urgency.HIGH)
+                .send();
+            
+            return createOperationFailedMessage();
+        }
+        
+        String speechText = "I found a spot named " + parkingName + ".";
+        speechText += "Do you want to park there?";
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
@@ -127,6 +145,22 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
 
+    private SpeechletResponse createOperationFailedMessage()
+    {
+        String speechText = "Sorry. I can't find anything around your right now.";
+
+        // Create the Simple card content.
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+    
     /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *
