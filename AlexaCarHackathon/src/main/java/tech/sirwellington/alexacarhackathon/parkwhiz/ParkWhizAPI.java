@@ -16,6 +16,9 @@ import sir.wellington.alchemy.collections.lists.Lists;
 import tech.aroma.client.Urgency;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
+import static tech.sirwellington.alchemy.arguments.assertions.NetworkAssertions.validURL;
+import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 import static tech.sirwellington.alexacarhackathon.APIs.HTTP;
 
@@ -27,10 +30,11 @@ public final class ParkWhizAPI
 {
 
     private final static Logger LOG = LoggerFactory.getLogger(ParkWhizAPI.class);
+    private static final String API_KEY = "cbe9b407cf97223dc1fd051550396e53";
 
     public static ParkingStructure getParkingNear(Location location) throws Exception
     {
-        String link = "http://api.parkwhiz.com/search/?key=cbe9b407cf97223dc1fd051550396e53&lat=34.051099&lng=-118.257030";
+        String link = "http://api.parkwhiz.com/search/?lat=34.051099&lng=-118.257030";
 
         AROMA.begin().titled("Requesting Parking")
             .text("Near {}", location)
@@ -41,9 +45,49 @@ public final class ParkWhizAPI
 
         JsonElement response = HTTP.go()
             .get()
+            .usingQueryParam("key", API_KEY)
             .at(link)
             .body();
 
+        return anyListingFoundIn(response);
+        
+    }
+    
+    /**
+     * 
+     * @param apiURL The API URL associated with a given parking structure
+     * when a search query was made. This allows a quick lookup.
+     * @return 
+     */
+    public static ParkingStructure getParkingByURL(String apiURL) throws Exception
+    {
+        checkThat(apiURL)
+            .is(nonEmptyString())
+            .is(validURL());
+
+        AROMA.begin().titled("Getting Parking Info")
+            .text(apiURL)
+            .withUrgency(Urgency.LOW)
+            .send();
+            
+        JsonElement response = HTTP.go()
+            .get()
+            .usingQueryParam("key", API_KEY)
+            .at(apiURL)
+            .body();
+        
+        checkThat(response.isJsonObject())
+            .is(trueStatement())
+            .usingMessage("Unexpected JSON type: " + response);
+
+        JsonObject json = response.getAsJsonObject();
+        
+        return ParkingStructure.fromJSON(json);
+    }
+
+    private static ParkingStructure anyListingFoundIn(JsonElement response)
+    {
+        
         AROMA.begin().titled("Parking Found")
             .text("JSON\n{}", response)
             .withUrgency(Urgency.LOW)
@@ -62,7 +106,7 @@ public final class ParkWhizAPI
         if (listings.size() == 0)
         {
             AROMA.begin().titled("No Parking Found")
-                .text("Near Location: {}", location)
+                .text(response.toString())
                 .withUrgency(Urgency.HIGH)
                 .send();
 
