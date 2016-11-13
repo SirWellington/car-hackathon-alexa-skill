@@ -65,5 +65,10 @@ public class ParkingSpeechletTest
     {
         instance.sendPushNotificationToNavigateTo(Location.DOWNTOWN_LA);
     }
+    
+    @Test
+    public void testSendDirections()
+    {
+    }
 
 }

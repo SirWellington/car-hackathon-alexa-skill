@@ -16,8 +16,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.PayloadBuilder;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +36,6 @@ public final class ParkingSpeechlet implements Speechlet
 {
 
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechlet.class);
-    private final ExecutorService async = Executors.newSingleThreadExecutor();
 
     @Override
     public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException
@@ -215,10 +212,7 @@ public final class ParkingSpeechlet implements Speechlet
             location = Location.DOWNTOWN_LA;
         }
 
-        async.submit(() ->
-            {
-                this.sendPushNotificationToNavigateTo(location);
-            });
+        sendPushNotificationToNavigateTo(location);
 
         String message = "Ok. I sent navigation instructions to your phone.";
         AROMA.begin().titled("Direction Notification Sent")
@@ -271,42 +265,6 @@ public final class ParkingSpeechlet implements Speechlet
         speechText += "Do you want to park there?";
 
         return speechText;
-    }
-
-    private void addParkingToSession(ParkingStructure parking, Session session)
-    {
-        session.setAttribute("place", parking.asJSON().toString());
-    }
-
-    private ParkingStructure getParkingFrom(Session session)
-    {
-        if (session == null)
-        {
-            return null;
-        }
-
-        Object placeObject = session.getAttribute("place");
-        if (placeObject == null)
-        {
-            return null;
-        }
-
-        String placeJson = placeObject.toString();
-
-        Gson gson = new Gson();
-        JsonElement json = gson.toJsonTree(placeJson);
-
-        if (!json.isJsonObject())
-        {
-            LOG.warn("Unexpected JSON type: " + json);
-            AROMA.begin().titled("Unexpected JSON")
-                .text("JSON of Type {}", json)
-                .send();
-
-            return null;
-        }
-
-        return ParkingStructure.fromJSON(json.getAsJsonObject());
     }
 
     /**
@@ -368,5 +326,41 @@ public final class ParkingSpeechlet implements Speechlet
         speech.setText(speechText);
 
         return SpeechletResponse.newTellResponse(speech, card);
+    }
+
+    private void addParkingToSession(ParkingStructure parking, Session session)
+    {
+        session.setAttribute("place", parking.asJSON().toString());
+    }
+
+    private ParkingStructure getParkingFrom(Session session)
+    {
+        if (session == null)
+        {
+            return null;
+        }
+
+        Object placeObject = session.getAttribute("place");
+        if (placeObject == null)
+        {
+            return null;
+        }
+
+        String placeJson = placeObject.toString();
+
+        Gson gson = new Gson();
+        JsonElement json = gson.fromJson(placeJson, JsonElement.class);
+
+        if (!json.isJsonObject())
+        {
+            LOG.warn("Unexpected JSON type: " + json);
+            AROMA.begin().titled("Unexpected JSON")
+                .text("JSON of Type {}", json)
+                .send();
+
+            return null;
+        }
+
+        return ParkingStructure.fromJSON(json.getAsJsonObject());
     }
 }
