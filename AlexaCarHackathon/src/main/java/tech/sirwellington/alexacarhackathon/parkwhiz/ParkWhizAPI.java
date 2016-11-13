@@ -9,8 +9,10 @@ package tech.sirwellington.alexacarhackathon.parkwhiz;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sir.wellington.alchemy.collections.lists.Lists;
 import tech.aroma.client.Urgency;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
@@ -67,17 +69,24 @@ public final class ParkWhizAPI
             return null;
         }
         
-        JsonElement firstElement = listings.get(0);
-        checkThat(firstElement.isJsonObject())
-            .usingMessage("Expected Object in Parking listings, but instead: " + firstElement);
+        List<JsonElement> elementsArray = Lists.create();
+        for (JsonElement element : listings)
+        {
+            elementsArray.add(element);
+        }
         
-        JsonObject firstObject = firstElement.getAsJsonObject();
-        ParkingStructure firstParkingStructure = ParkingStructure.fromJSON(firstObject);
+        JsonElement anyParking = Lists.oneOf(elementsArray);
+        
+        checkThat(anyParking.isJsonObject())
+            .usingMessage("Expected Object in Parking listings, but instead: " + anyParking);
+        
+        JsonObject anyParkingObject = anyParking.getAsJsonObject();
+        ParkingStructure parkingStructure = ParkingStructure.fromJSON(anyParkingObject);
         
         AROMA.begin().titled("Found Parking")
-            .text(firstParkingStructure.toString())
+            .text(parkingStructure.toString())
             .send();
         
-        return firstParkingStructure;
+        return parkingStructure;
     }
 }
