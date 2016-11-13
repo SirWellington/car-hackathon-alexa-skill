@@ -19,10 +19,10 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.aroma.client.Aroma;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
+import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 
 /**
  *
@@ -33,12 +33,10 @@ public final class ParkingSpeechlet implements Speechlet
 
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechlet.class);
 
-    private final Aroma aroma = Aroma.create("d4592e6b-cb53-4dea-945d-52043abbec84");
-
     @Override
     public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException
     {
-        aroma.begin()
+        AROMA.begin()
             .titled("Session Started")
             .text("Request ID: {}, \n SessionID: {}", request.getRequestId(), session.getSessionId())
             .send();
@@ -47,7 +45,7 @@ public final class ParkingSpeechlet implements Speechlet
     @Override
     public SpeechletResponse onLaunch(LaunchRequest request, Session session) throws SpeechletException
     {
-        aroma.begin()
+        AROMA.begin()
             .titled("Speechlet Launched")
             .text("Request ID: {}\nSessionID: {}", request.getRequestId(), session.getSessionId())
             .send();
@@ -58,7 +56,7 @@ public final class ParkingSpeechlet implements Speechlet
     @Override
     public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException
     {
-        aroma.begin()
+        AROMA.begin()
             .titled("Speechlet Launched")
             .text("Intent: {}\nSession ID: {}", request.getIntent(), session.getSessionId())
             .send();
@@ -83,7 +81,7 @@ public final class ParkingSpeechlet implements Speechlet
     @Override
     public void onSessionEnded(SessionEndedRequest request, Session session) throws SpeechletException
     {
-        aroma.begin()
+        AROMA.begin()
             .titled("Session Ended")
             .text("Session ID: {}", session.getSessionId())
             .send();
