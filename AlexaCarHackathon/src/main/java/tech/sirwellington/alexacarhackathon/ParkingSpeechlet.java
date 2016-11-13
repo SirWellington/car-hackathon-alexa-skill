@@ -173,6 +173,10 @@ public final class ParkingSpeechlet implements Speechlet
 
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
+        
+        AROMA.begin().titled("Parking Booked")
+            .text("Parking: {}", parking)
+            .send();
 
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
