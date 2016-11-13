@@ -7,7 +7,7 @@
       "intent" : "ParkMeIntent"
     },
     {
-      "intent" : "BookIntent"  
+      "intent" : "BookIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"

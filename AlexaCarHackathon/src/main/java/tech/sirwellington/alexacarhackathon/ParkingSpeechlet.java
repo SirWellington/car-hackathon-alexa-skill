@@ -59,12 +59,12 @@ public final class ParkingSpeechlet implements Speechlet
     @Override
     public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException
     {
+        String intent = request.getIntent().getName();
+
         AROMA.begin()
             .titled("Speechlet Launched")
-            .text("Intent: {}\nSession ID: {}", request.getIntent(), session.getSessionId())
+            .text("Intent: {}\nSession ID: {}", intent, session.getSessionId())
             .send();
-
-        String intent = request.getIntent().getName();
 
         checkThat(intent).is(nonEmptyString())
             .throwing(SpeechletException.class)
@@ -188,7 +188,7 @@ public final class ParkingSpeechlet implements Speechlet
         responseSpeech.setText(speechText);
         
         PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
-        responseSpeech.setText(repromtText);
+        repromptSpeech.setText(repromtText);
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
         
