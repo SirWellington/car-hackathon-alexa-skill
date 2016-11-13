@@ -44,6 +44,8 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Session Started")
             .text("Request ID: {}, \n SessionID: {}", request.getRequestId(), session.getSessionId())
             .send();
+        
+        LOG.info("Session Started: {}", session);
     }
 
     @Override
@@ -54,6 +56,8 @@ public final class ParkingSpeechlet implements Speechlet
             .text("Request ID: {}\nSessionID: {}", request.getRequestId(), session.getSessionId())
             .send();
 
+        LOG.info("Speechlet Launched with: {}", request.getRequestId());
+        
         return createWelcomeMessage();
     }
 
@@ -66,6 +70,8 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Speechlet Launched")
             .text("Intent: {}\nSession ID: {}", intent, session.getSessionId())
             .send();
+        
+        LOG.info("Speeclet Launched with intent: {} and Session [{}]", intent, session.getSessionId());
 
         checkThat(intent).is(nonEmptyString())
             .throwing(SpeechletException.class)
@@ -93,6 +99,8 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Session Ended")
             .text("Session ID: {}", session.getSessionId())
             .send();
+        
+        LOG.info("Session Ended: {}", session.getSessionId());
     }
 
     private SpeechletResponse createParkMeMessage(Session session)
@@ -158,7 +166,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         String speechText = "Ok. I have reserved a spot for you using your credit card. ";
         speechText += "Your parking spot is number 33 on the second floor. ";
-        speechText += "Would you like directions to your parking spot? ";
+        speechText += "Would you like me to send directions to your parking spot? ";
 
         PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
         responseSpeech.setText(speechText);
@@ -178,6 +186,8 @@ public final class ParkingSpeechlet implements Speechlet
             .text("Parking: {}", parking)
             .send();
 
+        LOG.info("Parking booked at {}", parking);
+        
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
 
@@ -219,6 +229,7 @@ public final class ParkingSpeechlet implements Speechlet
         sendPushNotificationToNavigateTo(location);
 
         String message = "Ok. I sent navigation instructions to your phone.";
+        
         AROMA.begin().titled("Direction Notification Sent")
             .text("To Location: \n{}Place: {}", location, parking)
             .send();

@@ -56,7 +56,6 @@ public class Certificates
         }
         
         return new ApnsServiceBuilder()
-            .asQueued()
             .withAppleDestination(true)
             .withSandboxDestination()
             .withCert(cert, "deroderoderoke9")

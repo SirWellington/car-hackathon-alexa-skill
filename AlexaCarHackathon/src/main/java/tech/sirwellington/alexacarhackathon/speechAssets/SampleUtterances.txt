@@ -29,6 +29,8 @@ BookIntent uh huh
 
 DirectionsIntent direct me
 DirectionsIntent direct me place
+DirectionsIntent send me directions
+DirectionsIntent send me the directions
 DirectionsIntent give me directions
 DirectionsIntent guide me
 DirectionsIntent ok
