@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
+import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 
 /**
  *
@@ -60,9 +61,9 @@ public class ParkingSpeechletTest
     }
 
     @Test
-    public void testSendPushNotification()
+    public void testSendPushNotificationToNavigateTo()
     {
-        instance.sendPushNotification();
+        instance.sendPushNotificationToNavigateTo(Location.DOWNTOWN_LA);
     }
 
 }

@@ -31,6 +31,7 @@ import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
+import static com.amazon.speech.speechlet.SpeechletResponse.newTellResponse;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
@@ -87,7 +88,9 @@ public final class ParkingSpeechlet implements Speechlet
             case "HelloIntent":
                 return createHelloMessage();
             case "BookIntent":
-                return createMessageToBook();
+                return createMessageToBook(session);
+            case "DirectionsIntent":
+                return createDirectionsMessage(session);
         }
 
         return createWelcomeMessage();
@@ -126,7 +129,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         String speechText = createSpeechTextFor(parking);
         addParkingToSession(parking, session);
-        
+
         String repromptText = "Do you want to park there? Say yes or no.";
 
         // Create the Simple card content.
@@ -137,7 +140,7 @@ public final class ParkingSpeechlet implements Speechlet
         // Create the plain text output.
         PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
         responseSpeech.setText(speechText);
-        
+
         PlainTextOutputSpeech promptSpeech = new PlainTextOutputSpeech();
         promptSpeech.setText(repromptText);
 
@@ -183,33 +186,128 @@ public final class ParkingSpeechlet implements Speechlet
 
         return SpeechletResponse.newTellResponse(speech, card);
     }
-    
-    private SpeechletResponse createMessageToBook()
+
+    private SpeechletResponse createMessageToBook(Session session)
     {
+        ParkingStructure parking = getParkingFrom(session);
+
+        if (parking == null)
+        {
+            AROMA.begin().titled("ParkingStructure Parsing Failed").send();
+        }
+        else
+        {
+            AROMA.begin().titled("ParkingStructure Parsing Successful").send();
+        }
+
         String speechText = "Ok. I have reserved a spot for you using your credit card. ";
         speechText += "Your parking spot is number 33 on the second floor. ";
         speechText += "Would you like directions to your parking spot? ";
-        
+
         PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
         responseSpeech.setText(speechText);
-        
+
         SimpleCard card = new SimpleCard();
         card.setTitle("ParkMe");
         card.setContent(speechText);
 
-        String repromtText= "Would you like directions to your parking spot? Say yes or no. ";
+        String repromtText = "Would you like directions to your parking spot? Say yes give me directions. ";
         PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
         repromptSpeech.setText(repromtText);
-        
+
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
-        
-        async.submit(this::sendPushNotification);
-        
+
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
+
+   
+
+    void sendPushNotificationToNavigateTo(Location location)
+    {
+        byte[] payload = createNotificationToOpen(location);
+        String base64DeviceId = "O3ahNQuzM2E105jGnPIKyhWIcTgtHh/IKErV4uOzrJs=";
+        byte[] deviceId = DatatypeConverter.parseBase64Binary(base64DeviceId);
+
+        APIs.APNS.push(deviceId, payload);
+
+        AROMA.begin().titled("Sent Push Notifications")
+            .text("To {}", base64DeviceId)
+            .send();
+    }
+
+    private byte[] createNotificationToOpen(Location location)
+    {
+        String alertTitle = "Alexa Hackathon";
+        String alertBody = "Open Navigation to Parking Spot";
+
+        PayloadBuilder builder = APNS.newPayload()
+            .instantDeliveryOrSilentNotification()
+            .alertTitle(alertTitle)
+            .alertBody(alertBody)
+            .customField("json", location.asJSON().toString());
+
+        return builder.buildBytes();
+    }
+
+    private String createSpeechTextFor(ParkingStructure parking)
+    {
+        String speechText = "I found a spot named " + parking.getName() + " . ";
+        speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
+        speechText += "and costs " + parking.getPrice() + " dollars. ";
+        speechText += "They have " + parking.getAvailableSpots() + " spots available. ";
+        speechText += "Do you want to park there?";
+
+        return speechText;
+    }
+
+    private void addParkingToSession(ParkingStructure parking, Session session)
+    {
+        session.setAttribute("place", parking.asJSON().toString());
+    }
+
+    private ParkingStructure getParkingFrom(Session session)
+    {
+        Object placeObject = session.getAttribute("place");
+        if (placeObject == null)
+        {
+            return null;
+        }
+
+        String placeJson = placeObject.toString();
+
+        Gson gson = new Gson();
+        JsonElement json = gson.toJsonTree(placeJson);
+
+        checkThat(json.isJsonObject())
+            .usingMessage("Unexpected JSON type: " + json)
+            .is(trueStatement());
+
+        return ParkingStructure.fromJSON(json.getAsJsonObject());
+    }
+
+    private SpeechletResponse createDirectionsMessage(Session session)
+    {
+        ParkingStructure parking = getParkingFrom(session);
+
+        if (parking == null)
+        {
+            AROMA.begin().titled("Info Missing")
+                .text("Missing Parking information from session")
+                .send();
+
+            return SpeechletResponse.newTellResponse(new PlainTextOutputSpeech());
+        }
+
+        async.submit(() -> 
+        {
+            this.sendPushNotificationToNavigateTo(parking.getLocation());
+        });
+        
+        return newTellResponse(new PlainTextOutputSpeech());
+    }
     
-    /**
+     /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *
      * @return SpeechletResponse spoken and visual response for the given intent
@@ -234,67 +332,4 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
 
-    void sendPushNotification()
-    {
-        byte[] payload = createNotificationToOpen(Location.DOWNTOWN_LA);
-        String base64DeviceId = "O3ahNQuzM2E105jGnPIKyhWIcTgtHh/IKErV4uOzrJs=";
-        byte[] deviceId = DatatypeConverter.parseBase64Binary(base64DeviceId);
-        
-        APIs.APNS.push(deviceId, payload);
-        
-        AROMA.begin().titled("Sent Push Notifications")
-            .text("To {}", base64DeviceId)
-            .send();
-    }
-    
-    private byte[] createNotificationToOpen(Location location)
-    {
-        String alertTitle = "Alexa Hackathon";
-        String alertBody = "Open Navigation to Parking Spot";
-
-        PayloadBuilder builder = APNS.newPayload()
-            .instantDeliveryOrSilentNotification()
-            .alertTitle(alertTitle)
-            .alertBody(alertBody)
-            .customField("json", location.asJSON().toString());
-
-        return builder.buildBytes();
-    }
-
-    private String createSpeechTextFor(ParkingStructure parking)
-    {
-        String speechText = "I found a spot named " + parking.getName() + " . ";
-        speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
-        speechText += "and costs " + parking.getPrice()+ " dollars. ";
-        speechText += "They have " + parking.getAvailableSpots() + " spots available. ";
-        speechText += "Do you want to park there?";
-        
-        return speechText;
-    }
-
-    private void addParkingToSession(ParkingStructure parking, Session session)
-    {
-        session.setAttribute("place", parking.asJSON().toString());
-    }
-    
-    private ParkingStructure getParkingFrom(Session session)
-    {
-        Object placeObject = session.getAttribute("place");
-        if(placeObject == null)
-        {
-            return null;
-        }
-        
-        String placeJson = placeObject.toString();
-        
-        Gson gson = new Gson();
-        JsonElement json = gson.toJsonTree(placeJson);
-        
-        checkThat(json.isJsonObject())
-            .usingMessage("Unexpected JSON type: " + json)
-            .is(trueStatement());
-        
-        return ParkingStructure.fromJSON(json.getAsJsonObject());
-    }
-    
 }
