@@ -12,7 +12,6 @@ import tech.sirwellington.alchemy.annotations.objects.Pojo;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
-import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 
 /**
  *
@@ -199,7 +198,7 @@ public class ParkingStructure
         static final String STATE = "state";
         static final String ZIP_CODE = "zip";
         static final String LATITUDE = "lat";
-        static final String LONGITUDE = "lon";
+        static final String LONGITUDE = "lng";
         static final String DISTANCE = "distance";
         static final String AVAILABLE_SPOTS = "available_spots";
         static final String PRICE = "price";
