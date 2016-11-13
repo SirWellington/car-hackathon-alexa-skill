@@ -112,7 +112,7 @@ public final class ParkingSpeechlet implements Speechlet
             return createOperationFailedMessage();
         }
 
-        String speechText = "I found a spot named " + parking.getName() + ".";
+        String speechText = "I found a spot named " + parking.getName() + " .";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
         speechText += "and costs " + parking.getPrice()+ "dollars.";
         
@@ -132,7 +132,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         // Create reprompt
         Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(responseSpeech);
+        reprompt.setOutputSpeech(promptSpeech);
 
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
