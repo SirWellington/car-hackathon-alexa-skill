@@ -22,7 +22,7 @@ public final class ParkingSpeechletHandler extends SpeechletRequestStreamHandler
 {
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechletHandler.class);
 
-    private static final Set<String> APPLICATION_IDS = Sets.createFrom("amzn1.ask.skill.a01de60e-d3d4-4983-85d7-00a3ce26144c");
+    private static final Set<String> APPLICATION_IDS = Sets.createFrom("amzn1.ask.skill.bb0143f5-53d8-4121-b599-2d5872f4541b");
     
     public ParkingSpeechletHandler()
     {
