@@ -21,7 +21,6 @@ import static tech.sirwellington.alchemy.arguments.assertions.NetworkAssertions.
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 import static tech.sirwellington.alexacarhackathon.APIs.HTTP;
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  *
@@ -35,7 +34,9 @@ public final class ParkWhizAPI
 
     public static ParkingStructure getParkingNear(Location location) throws Exception
     {
-        String link = "http://api.parkwhiz.com/search/?lat=34.051099&lng=-118.257030";
+        location = location == null ? Location.DOWNTOWN_LA : location;
+        
+        String link = "http://api.parkwhiz.com/search/";
 
         AROMA.begin().titled("Requesting Parking")
             .text("Near {}", location)
@@ -46,6 +47,8 @@ public final class ParkWhizAPI
 
         JsonElement response = HTTP.go()
             .get()
+            .usingQueryParam("lat", location.latitude)
+            .usingQueryParam("lng", location.longitude)
             .usingQueryParam("key", API_KEY)
             .at(link)
             .body();

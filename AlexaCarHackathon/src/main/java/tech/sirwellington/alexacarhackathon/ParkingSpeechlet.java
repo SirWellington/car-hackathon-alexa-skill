@@ -208,7 +208,7 @@ public final class ParkingSpeechlet implements Speechlet
     }
 
     private String createSpeechTextFor(ParkingStructure parking)
-    {
+    { 
         String speechText = "I found a spot named " + parking.getName() + " . ";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
         speechText += "and costs " + parking.getPrice() + " dollars. ";
@@ -245,6 +245,10 @@ public final class ParkingSpeechlet implements Speechlet
 
     private SpeechletResponse createDirectionsMessage(Session session)
     {
+        AROMA.begin()
+            .titled("Received Directions Intent")
+            .send();
+        
         ParkingStructure parking = getParkingFrom(session);
 
         if (parking == null)
