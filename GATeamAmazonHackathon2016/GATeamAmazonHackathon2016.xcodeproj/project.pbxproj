@@ -37,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		3253B3CF1DD851E5007F507D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3253B3D11DD87E8F007F507D /* GATeamAmazonHackathon2016.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GATeamAmazonHackathon2016.entitlements; sourceTree = "<group>"; };
 		326C7D681DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GATeamAmazonHackathon2016.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		326C7D6A1DD7ECFA0011F3B8 /* GATeamAmazonHackathon2016 */ = {
 			isa = PBXGroup;
 			children = (
+				3253B3D11DD87E8F007F507D /* GATeamAmazonHackathon2016.entitlements */,
 				326C7D6B1DD7ECFA0011F3B8 /* AppDelegate.swift */,
 				3253B3CF1DD851E5007F507D /* ViewController.swift */,
 				326C7D6D1DD7ECFA0011F3B8 /* MapViewController.swift */,
@@ -199,8 +201,13 @@
 				TargetAttributes = {
 					326C7D671DD7ECFA0011F3B8 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 268HJM5ELZ;
+						DevelopmentTeam = 5E82HJH2N5;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					326C7D7B1DD7ECFA0011F3B8 = {
 						CreatedOnToolsVersion = 8.0;
@@ -423,11 +430,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GATeamAmazonHackathon2016/GATeamAmazonHackathon2016.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				DEVELOPMENT_TEAM = 5E82HJH2N5;
 				INFOPLIST_FILE = GATeamAmazonHackathon2016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016;
+				PRODUCT_BUNDLE_IDENTIFIER = GATeam.AmazonHackathon2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -437,11 +445,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GATeamAmazonHackathon2016/GATeamAmazonHackathon2016.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 268HJM5ELZ;
+				DEVELOPMENT_TEAM = 5E82HJH2N5;
 				INFOPLIST_FILE = GATeamAmazonHackathon2016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Dero.GATeamAmazonHackathon2016;
+				PRODUCT_BUNDLE_IDENTIFIER = GATeam.AmazonHackathon2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

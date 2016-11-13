@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import MapKit
 import CoreLocation
+import Contacts
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
@@ -75,9 +76,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         setRegion()
         mapView.addAnnotation(TheLaxCoordinate())
         
+        let mapItem = MKMapItem(placemark: laxPlace)
+        let options = [MKLaunchOptionsDirectionsModeKey:
+            MKLaunchOptionsDirectionsModeDriving,
+                       MKLaunchOptionsShowsTrafficKey: true] as [String : Any]
+        mapItem.openInMaps(launchOptions: options)
+        
+        
     }
     
     
+    // gets and updates current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation: CLLocation = locations[0]
@@ -98,17 +107,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // get directions
+    
+    //    let address = [CNPostalAddressStreetKey: "Tom Bradley International Terminal",
+    //                   CNPostalAddressCityKey: "Los Angeles",
+    //                   CNPostalAddressStreetKey: "CA",
+    //                   CNPostalAddressPostalCodeKey: "90045",
+    //                   CNPostalAddressCountryKey: "US"]
+    
+    let laxPlace = MKPlacemark(coordinate: laxCoordinates)
+    
+    
+    
     // LAX Annotation
-    
-    static let laxCoordinates = CLLocationCoordinate2DMake(33.9416, -118.4085)
-   
-    
-    
     func setRegion() {
         
         let laxLatSpan: CLLocationDegrees = 0.05
@@ -118,7 +135,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.setRegion(laxRegion, animated: true)
         
     }
-
+    
+    static let laxCoordinates = CLLocationCoordinate2DMake(33.9416, -118.4085)
+    
     class TheLaxCoordinate: NSObject, MKAnnotation {
         
         var coordinate: CLLocationCoordinate2D = laxCoordinates

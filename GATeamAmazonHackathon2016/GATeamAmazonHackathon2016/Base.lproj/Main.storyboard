@@ -62,7 +62,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <state key="normal" title="Maps"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="cas-Pv-aQr"/>
+                                    <action selector="mapButton:" destination="Ef3-4M-AYb" eventType="touchUpInside" id="APj-MH-ZKX"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="toMaps" id="sRO-tp-Y0T"/>
                                 </connections>
                             </button>
                         </subviews>
