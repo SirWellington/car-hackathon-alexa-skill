@@ -13,6 +13,7 @@ import tech.sirwellington.alchemy.annotations.objects.Pojo;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 
 /**
  *
@@ -201,11 +202,18 @@ public class ParkingStructure
     {
         checkThat(object).is(notNull());
 
-        checkThat(object.has(Keys.NAME)).usingMessage("object missing name");
-        checkThat(object.has(Keys.STREET_ADDRESS)).usingMessage("object missing street address");
-        checkThat(object.has(Keys.LATITUDE)).usingMessage("object missing location information");
-        checkThat(object.has(Keys.LONGITUDE)).usingMessage("object missing location information");
-        checkThat(object.has(Keys.PRICE)).usingMessage("object missing price information");
+        checkThat(object.has(Keys.NAME))
+            .is(trueStatement())
+            .usingMessage("object missing name");
+        checkThat(object.has(Keys.STREET_ADDRESS))
+            .is(trueStatement())
+            .usingMessage("object missing street address");
+        checkThat(object.has(Keys.LATITUDE))
+            .is(trueStatement())
+            .usingMessage("object missing location information");
+        checkThat(object.has(Keys.LONGITUDE))
+            .is(trueStatement())
+            .usingMessage("object missing location information");
 
         ParkingStructure parking = new ParkingStructure();
         fillParkingWithJSON(parking, object);
@@ -222,7 +230,11 @@ public class ParkingStructure
         location.latitude = object.get(Keys.LATITUDE).getAsDouble();
         location.longitude = object.get(Keys.LONGITUDE).getAsDouble();
         parking.location = location;
-        parking.price = object.get(Keys.PRICE).getAsInt();
+        
+        if (object.has(Keys.PRICE))
+        {
+            parking.price = object.get(Keys.PRICE).getAsInt();
+        }
 
         if (object.has(Keys.DISTANCE))
         {
