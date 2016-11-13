@@ -117,6 +117,7 @@ public final class ParkingSpeechlet implements Speechlet
         String speechText = "I found a spot named " + parking.getName() + " . ";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
         speechText += "and costs " + parking.getPrice()+ " dollars. ";
+        speechText += "They have " + parking.getAvailableSpots() + " spots available. ";
         speechText += "Do you want to park there?";
         
         String repromptText = "Do you want to park there? Say yes or no.";
@@ -179,6 +180,7 @@ public final class ParkingSpeechlet implements Speechlet
     private SpeechletResponse createMessageToBook()
     {
         String speechText = "Ok. I have reserved a spot for you using your credit card. ";
+        speechText += "Your parking spot is number 33 on the second floor. ";
         speechText += "Would you like directions to your parking spot? ";
         
         PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
