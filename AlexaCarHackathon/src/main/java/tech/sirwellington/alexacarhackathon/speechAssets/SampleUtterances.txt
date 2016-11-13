@@ -11,3 +11,16 @@ ParkMeIntent what is the nearest parking spot
 ParkMeIntent I need to park
 ParkMeIntent I need to park my car
 ParkMeIntent Help me find parking
+
+BookIntent yes
+BookIntent sure
+BookIntent yes please
+BookIntent please
+BookIntent please do
+BookIntent definitely
+BookIntent most deaf
+BookIntent absolutely
+BookIntent hell yea
+BookIntent hells to the yea
+BookIntent yea
+BookIntent uh huh
