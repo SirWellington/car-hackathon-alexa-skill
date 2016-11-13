@@ -5,7 +5,7 @@ HelloIntent say hi
 HelloIntent say hi world
 HelloIntent hi
 HelloIntent how are you
-ParkMeIntent where can I park?
-ParkMeIntent what is the nearest parking spot?
+ParkMeIntent where can I park
+ParkMeIntent what is the nearest parking spot
 ParkMeIntent I need to park
 ParkMeIntent I need to park my car
