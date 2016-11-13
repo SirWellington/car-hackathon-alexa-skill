@@ -18,7 +18,7 @@ import sir.wellington.alchemy.collections.sets.Sets;
  *
  * @author SirWellington
  */
-public class ParkingSpeechletHandler extends SpeechletRequestStreamHandler
+public final class ParkingSpeechletHandler extends SpeechletRequestStreamHandler
 {
     private final static Logger LOG = LoggerFactory.getLogger(ParkingSpeechletHandler.class);
 
