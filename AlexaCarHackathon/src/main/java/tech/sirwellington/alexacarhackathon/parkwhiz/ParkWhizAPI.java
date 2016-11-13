@@ -30,7 +30,7 @@ public final class ParkWhizAPI
 
     public static ParkingStructure getParkingNear(Location location) throws Exception
     {
-        String link = "http://api.parkwhiz.com/search/?key=cbe9b407cf97223dc1fd051550396e53&lat=34.0522&lng=-118.2437";
+        String link = "http://api.parkwhiz.com/search/?key=cbe9b407cf97223dc1fd051550396e53&lat=34.051099&lng=-118.257030";
 
         AROMA.begin().titled("Requesting Parking")
             .text("Near {}", location)
