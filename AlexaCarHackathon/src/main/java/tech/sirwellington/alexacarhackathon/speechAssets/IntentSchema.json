@@ -10,6 +10,9 @@
       "intent" : "BookIntent"
     },
     {
+        "intent" : "DirectionsIntent"
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
