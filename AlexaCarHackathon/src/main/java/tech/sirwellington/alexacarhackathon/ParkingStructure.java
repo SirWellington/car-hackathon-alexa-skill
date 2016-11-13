@@ -6,8 +6,14 @@
 
 package tech.sirwellington.alexacarhackathon;
 
+import com.google.gson.JsonObject;
 import java.util.Objects;
+import tech.sirwellington.alchemy.annotations.arguments.Required;
 import tech.sirwellington.alchemy.annotations.objects.Pojo;
+
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 
 /**
  *
@@ -297,6 +303,22 @@ public class ParkingStructure
             return "Location{" + "latitude=" + latitude + ", longitude=" + longitude + '}';
         }
 
+        
+        public static Location fromJSON(@Required JsonObject object)
+        {
+            checkThat(object).is(notNull());
+            checkThat(object.has("lat"))
+                .is(trueStatement())
+                .usingMessage("Object missing latitude: " + object);
+            checkThat(object.has("long"))
+                .usingMessage("Object missing longitude: " + object);
+            
+            double lat = object.get("lat").getAsDouble();
+            double lon = object.get("lon").getAsDouble();
+            
+            return new Location(lat, lon);
+        }
+        
     }
 
 }
