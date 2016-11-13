@@ -186,16 +186,33 @@ public final class ParkingSpeechlet implements Speechlet
             .titled("Received Directions Intent")
             .send();
 
-        ParkingStructure parking = getParkingFrom(session);
-        Location location = parking.getLocation() == null ? Location.DOWNTOWN_LA : parking.getLocation();
+        ParkingStructure parking = null;
+        try
+        {
+            parking = getParkingFrom(session);
+        }
+        catch (Exception ex)
+        {
+            LOG.error("Failed to parse Parking Structure");
+            AROMA.begin().titled("Failed To Parse")
+                .text("Could not deserialize parking structure: {}", ex)
+                .withUrgency(Urgency.HIGH)
+                .send();
+        }
 
-        if (location == null)
+        Location location;
+
+        if (parking != null && parking.getLocation() != null)
+        {
+            location = parking.getLocation();
+        }
+        else
         {
             AROMA.begin().titled("Info Missing")
                 .text("Missing Parking information from session")
                 .send();
-            
-            return createOperationFailedMessage();
+
+            location = Location.DOWNTOWN_LA;
         }
 
         async.submit(() ->
@@ -204,6 +221,9 @@ public final class ParkingSpeechlet implements Speechlet
             });
 
         String message = "Ok. I sent navigation instructions to your phone.";
+        AROMA.begin().titled("Direction Notification Sent")
+            .text("To Location: \n{}", location)
+            .send();
 
         SimpleCard card = new SimpleCard();
         card.setTitle("ParkMe");
@@ -260,6 +280,11 @@ public final class ParkingSpeechlet implements Speechlet
 
     private ParkingStructure getParkingFrom(Session session)
     {
+        if (session == null)
+        {
+            return null;
+        }
+
         Object placeObject = session.getAttribute("place");
         if (placeObject == null)
         {
