@@ -116,7 +116,7 @@ public final class ParkingSpeechlet implements Speechlet
 
         String speechText = "I found a spot named " + parking.getName() + " . ";
         speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
-        speechText += "and costs " + parking.getPrice()+ "dollars. ";
+        speechText += "and costs " + parking.getPrice()+ " dollars. ";
         speechText += "Do you want to park there?";
         
         String repromptText = "Do you want to park there? Say yes or no.";
@@ -181,21 +181,21 @@ public final class ParkingSpeechlet implements Speechlet
         String speechText = "Ok. I have reserved a spot for you using your credit card. ";
         speechText += "Would you like directions to your parking spot? ";
         
-        String repromtText= "Would you like directions to your parking spot? Say yes or no. ";
+        PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
+        responseSpeech.setText(speechText);
         
         SimpleCard card = new SimpleCard();
         card.setTitle("ParkMe");
         card.setContent(speechText);
-        
-        PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
-        responseSpeech.setText(speechText);
-        
+
+        String repromtText= "Would you like directions to your parking spot? Say yes or no. ";
         PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
         repromptSpeech.setText(repromtText);
+        
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
         
-        return SpeechletResponse.newAskResponse(repromptSpeech, reprompt, card);
+        return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
     
     /**
