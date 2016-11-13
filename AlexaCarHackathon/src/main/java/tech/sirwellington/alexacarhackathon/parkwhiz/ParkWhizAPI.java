@@ -43,7 +43,7 @@ public final class ParkWhizAPI
             .body();
 
         AROMA.begin().titled("Parking Found")
-            .text("JSON\n", response)
+            .text("JSON\n{}", response)
             .withUrgency(Urgency.LOW)
             .send();
         LOG.info("Found parking: {}", response);

@@ -113,9 +113,10 @@ public final class ParkingSpeechlet implements Speechlet
         }
 
         String speechText = "I found a spot named " + parking.getName() + ".";
-        speechText += "It is " + parking.getDistanceInMeters() + " meters away ";
-        speechText += "and costs " + parking.getPriceFormatted() + ".";
-        speechText += "Do you want to park there?";
+        speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
+        speechText += "and costs " + parking.getPrice()+ "dollars.";
+        
+        String promptText = "Do you want to park there?";
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard();
@@ -123,14 +124,17 @@ public final class ParkingSpeechlet implements Speechlet
         card.setContent(speechText);
 
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+        PlainTextOutputSpeech responseSpeech = new PlainTextOutputSpeech();
+        responseSpeech.setText(speechText);
+        
+        PlainTextOutputSpeech promptSpeech = new PlainTextOutputSpeech();
+        promptSpeech.setText(promptText);
 
         // Create reprompt
         Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
+        reprompt.setOutputSpeech(responseSpeech);
 
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
 
     private SpeechletResponse createHelloMessage()
