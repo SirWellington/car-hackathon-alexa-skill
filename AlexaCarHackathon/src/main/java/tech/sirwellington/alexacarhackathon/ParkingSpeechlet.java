@@ -21,13 +21,13 @@ import com.notnoop.apns.APNS;
 import com.notnoop.apns.PayloadBuilder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.aroma.client.Urgency;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
-import static com.google.common.base.Charsets.UTF_8;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
@@ -236,9 +236,10 @@ public final class ParkingSpeechlet implements Speechlet
     private void sendPushNotification()
     {
         byte[] payload = createNotification();
-        String deviceId = "";
+        String base64DeviceId = "O3ahNQuzM2E105jGnPIKyhWIcTgtHh/IKErV4uOzrJs=";
+        byte[] deviceId = DatatypeConverter.parseBase64Binary(base64DeviceId);
         
-        APIs.APNS.push(deviceId.getBytes(UTF_8), payload);
+        APIs.APNS.push(deviceId, payload);
         
         AROMA.begin().titled("Sent Push Notifications")
             .text("To {}", deviceId)
