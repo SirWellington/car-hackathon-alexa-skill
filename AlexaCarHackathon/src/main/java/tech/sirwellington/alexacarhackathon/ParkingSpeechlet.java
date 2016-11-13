@@ -17,6 +17,8 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.PayloadBuilder;
 import java.util.concurrent.ExecutorService;
@@ -25,10 +27,12 @@ import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.aroma.client.Urgency;
+import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 
@@ -79,7 +83,7 @@ public final class ParkingSpeechlet implements Speechlet
         switch (intent)
         {
             case "ParkMeIntent":
-                return createParkMeMessage();
+                return createParkMeMessage(session);
             case "HelloIntent":
                 return createHelloMessage();
             case "BookIntent":
@@ -98,7 +102,7 @@ public final class ParkingSpeechlet implements Speechlet
             .send();
     }
 
-    private SpeechletResponse createParkMeMessage()
+    private SpeechletResponse createParkMeMessage(Session session)
     {
         ParkingStructure parking;
         try
@@ -120,11 +124,8 @@ public final class ParkingSpeechlet implements Speechlet
             return createOperationFailedMessage();
         }
 
-        String speechText = "I found a spot named " + parking.getName() + " . ";
-        speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
-        speechText += "and costs " + parking.getPrice()+ " dollars. ";
-        speechText += "They have " + parking.getAvailableSpots() + " spots available. ";
-        speechText += "Do you want to park there?";
+        String speechText = createSpeechTextFor(parking);
+        addParkingToSession(parking, session);
         
         String repromptText = "Do you want to park there? Say yes or no.";
 
@@ -235,7 +236,7 @@ public final class ParkingSpeechlet implements Speechlet
 
     void sendPushNotification()
     {
-        byte[] payload = createNotification();
+        byte[] payload = createNotificationToOpen(Location.DOWNTOWN_LA);
         String base64DeviceId = "O3ahNQuzM2E105jGnPIKyhWIcTgtHh/IKErV4uOzrJs=";
         byte[] deviceId = DatatypeConverter.parseBase64Binary(base64DeviceId);
         
@@ -246,7 +247,7 @@ public final class ParkingSpeechlet implements Speechlet
             .send();
     }
     
-    private byte[] createNotification()
+    private byte[] createNotificationToOpen(Location location)
     {
         String alertTitle = "Alexa Hackathon";
         String alertBody = "Open Navigation to Parking Spot";
@@ -254,9 +255,46 @@ public final class ParkingSpeechlet implements Speechlet
         PayloadBuilder builder = APNS.newPayload()
             .instantDeliveryOrSilentNotification()
             .alertTitle(alertTitle)
-            .alertBody(alertBody);
+            .alertBody(alertBody)
+            .customField("json", location.asJSON().toString());
 
         return builder.buildBytes();
+    }
+
+    private String createSpeechTextFor(ParkingStructure parking)
+    {
+        String speechText = "I found a spot named " + parking.getName() + " . ";
+        speechText += "It is " + parking.getDistanceInMeters() + " meters away, ";
+        speechText += "and costs " + parking.getPrice()+ " dollars. ";
+        speechText += "They have " + parking.getAvailableSpots() + " spots available. ";
+        speechText += "Do you want to park there?";
+        
+        return speechText;
+    }
+
+    private void addParkingToSession(ParkingStructure parking, Session session)
+    {
+        session.setAttribute("place", parking.asJSON().toString());
+    }
+    
+    private ParkingStructure getParkingFrom(Session session)
+    {
+        Object placeObject = session.getAttribute("place");
+        if(placeObject == null)
+        {
+            return null;
+        }
+        
+        String placeJson = placeObject.toString();
+        
+        Gson gson = new Gson();
+        JsonElement json = gson.toJsonTree(placeJson);
+        
+        checkThat(json.isJsonObject())
+            .usingMessage("Unexpected JSON type: " + json)
+            .is(trueStatement());
+        
+        return ParkingStructure.fromJSON(json.getAsJsonObject());
     }
     
 }

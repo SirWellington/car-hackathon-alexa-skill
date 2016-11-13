@@ -21,6 +21,7 @@ import static tech.sirwellington.alchemy.arguments.assertions.NetworkAssertions.
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
 import static tech.sirwellington.alexacarhackathon.APIs.HTTP;
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  *

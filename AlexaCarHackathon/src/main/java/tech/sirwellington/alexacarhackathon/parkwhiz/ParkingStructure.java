@@ -34,13 +34,15 @@ public class ParkingStructure
     private String state;
     private int zipCode;
     private Location location;
-    private String parkWhizURL;
+    private String placeURL;
     private int availableSpots;
     private int price;
     private String priceFormatted;
     private String reservationAPIURL;
     private long distanceInFeet;
 
+    private JsonObject json;
+    
     public String getName()
     {
         return name;
@@ -71,9 +73,9 @@ public class ParkingStructure
         return location;
     }
 
-    public String getParkWhizURL()
+    public String getPlaceURL()
     {
-        return parkWhizURL;
+        return placeURL;
     }
 
     public int getAvailableSpots()
@@ -105,6 +107,11 @@ public class ParkingStructure
     {
         return (long) (distanceInFeet * 0.3048);
     }
+    
+    public JsonObject asJSON()
+    {
+        return json;
+    }
 
     @Override
     public int hashCode()
@@ -116,7 +123,7 @@ public class ParkingStructure
         hash = 43 * hash + Objects.hashCode(this.state);
         hash = 43 * hash + this.zipCode;
         hash = 43 * hash + Objects.hashCode(this.location);
-        hash = 43 * hash + Objects.hashCode(this.parkWhizURL);
+        hash = 43 * hash + Objects.hashCode(this.placeURL);
         hash = 43 * hash + this.availableSpots;
         hash = 43 * hash + this.price;
         hash = 43 * hash + Objects.hashCode(this.priceFormatted);
@@ -173,7 +180,7 @@ public class ParkingStructure
         {
             return false;
         }
-        if (!Objects.equals(this.parkWhizURL, other.parkWhizURL))
+        if (!Objects.equals(this.placeURL, other.placeURL))
         {
             return false;
         }
@@ -195,7 +202,7 @@ public class ParkingStructure
     @Override
     public String toString()
     {
-        return "ParkingStructure{" + "name=" + name + ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode + ", location=" + location + ", parkWhizURL=" + parkWhizURL + ", availableSpots=" + availableSpots + ", price=" + price + ", priceFormatted=" + priceFormatted + ", reservationAPIURL=" + reservationAPIURL + ", distanceInFeet=" + distanceInFeet + '}';
+        return "ParkingStructure{" + "name=" + name + ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode + ", location=" + location + ", parkWhizURL=" + placeURL + ", availableSpots=" + availableSpots + ", price=" + price + ", priceFormatted=" + priceFormatted + ", reservationAPIURL=" + reservationAPIURL + ", distanceInFeet=" + distanceInFeet + '}';
     }
 
     public static ParkingStructure fromJSON(@Required JsonObject object)
@@ -223,6 +230,7 @@ public class ParkingStructure
 
     private static void fillParkingWithJSON(ParkingStructure parking, JsonObject object)
     {
+        parking.json = object;
         parking.name = object.get(Keys.NAME).getAsString();
         parking.streetAddress = object.get(Keys.STREET_ADDRESS).getAsString();
 
@@ -269,6 +277,7 @@ public class ParkingStructure
         static final String PRICE = "price";
         static final String FORMATTED_PRICE = "price_formatted";
         static final String RESERVATION_URL = "api_reserve_url";
+        static final String PLACE_URL = "api_url";
     }
 
 }

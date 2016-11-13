@@ -24,6 +24,8 @@ public class Location
 {
     double latitude;
     double longitude;
+    
+    public static Location DOWNTOWN_LA = new Location(34.051099, -118.257030);
 
     public Location()
     {
@@ -53,6 +55,16 @@ public class Location
     public void setLongitude(double longitude)
     {
         this.longitude = longitude;
+    }
+    
+    public JsonObject asJSON()
+    {
+        JsonObject json = new JsonObject();
+        
+        json.addProperty("latitude", latitude);
+        json.addProperty("longitude", longitude);
+        
+        return json;
     }
 
     @Override
