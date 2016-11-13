@@ -53,9 +53,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             guard let arrayOfInformation = objectData["vehicles"] as? NSArray
                 else { return }
             
-            
-            
-            
+    
         }
         
     }
@@ -77,10 +75,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.addAnnotation(TheLaxCoordinate())
         
         let mapItem = MKMapItem(placemark: laxPlace)
+        //let mapItem2 = MKMapItem(placemark: )
         let options = [MKLaunchOptionsDirectionsModeKey:
             MKLaunchOptionsDirectionsModeDriving,
                        MKLaunchOptionsShowsTrafficKey: true] as [String : Any]
         mapItem.openInMaps(launchOptions: options)
+        
+        
+       
         
         
     }

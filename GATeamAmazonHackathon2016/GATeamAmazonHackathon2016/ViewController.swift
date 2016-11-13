@@ -7,27 +7,31 @@
 //
 
 import UIKit
-import Foundation 
+import Foundation
+import CoreLocation
+import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
-   
-    
-    
-    @IBAction func mapButton(_ sender: Any) {
-        
-        
-        
-        
-        
-    }
-  
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        delegate.onNewLocation = { newLocation in
+            //            self.openLocationAt(newLocation)
+            print(newLocation)
+            
+            let newPlaceMark = MKPlacemark(coordinate: newLocation)
+            let mapItem2 = MKMapItem(placemark: newPlaceMark)
+            let options2 = [MKLaunchOptionsDirectionsModeKey:
+                MKLaunchOptionsDirectionsModeDriving,
+                           MKLaunchOptionsShowsTrafficKey: true] as [String : Any]
+            mapItem2.openInMaps(launchOptions: options2)
+        }
     }
 
     override func didReceiveMemoryWarning() {

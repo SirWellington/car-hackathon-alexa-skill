@@ -8,11 +8,16 @@
 
 import UIKit
 import UserNotifications
+import CoreLocation
+import MapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
+    
+    var onNewLocation: ((CLLocationCoordinate2D) -> Void)? = nil
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -40,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     private func handleAuthorization(granted: Bool, error: Error?) {
         
-      let application = UIApplication.shared
+        let application = UIApplication.shared
         registerPushNotifications(for: application)
     }
     
@@ -49,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler()
     }
     
-   
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         let characterSet: NSCharacterSet = NSCharacterSet(charactersIn: " ")
@@ -57,10 +62,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let deviceTokenString: String = deviceToken.base64EncodedString()
         print("Token: \(deviceTokenString)")
         
-        
     }
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("data: \(userInfo)")
+        
+        guard let json = userInfo["json"] as? String else {
+            return
+        }
     
+        //print(json)
+        
+        
+       guard let data = json.data(using: .utf8),
+            let jsonCoordinates = try? JSONSerialization.jsonObject(with: data, options: [])
+        else {
+            print ("Failed to DeSerialize the data")
+            return
+        }
+        
+        guard let jsonDictionary = jsonCoordinates as? NSDictionary,
+        let latitude = jsonDictionary["latitude"] as? Double,
+        let longitude = jsonDictionary["longitude"] as? Double
+        else {
+                return
+        }
+        
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+//        onNewLocation?(coordinate)
+        
+        openLocation(coordinate)
+        
+        print("Here we go: \(jsonDictionary)")
+        
+        
+        
+        completionHandler(.newData)
+        
+    
+    }
+    
+    private func openLocation(_ coordinate: CLLocationCoordinate2D) {
+        
+        let newPlaceMark = MKPlacemark(coordinate: coordinate)
+        let mapItem2 = MKMapItem(placemark: newPlaceMark)
+        let options2 = [MKLaunchOptionsDirectionsModeKey:
+            MKLaunchOptionsDirectionsModeDriving,
+                        MKLaunchOptionsShowsTrafficKey: true] as [String : Any]
+        
+        mapItem2.openInMaps(launchOptions: options2)
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
