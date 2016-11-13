@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tech.sirwellington.alexacarhackathon;
 
 import com.amazon.speech.speechlet.IntentRequest;
@@ -31,7 +25,6 @@ import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
-import static com.amazon.speech.speechlet.SpeechletResponse.newTellResponse;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.BooleanAssertions.trueStatement;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
@@ -151,42 +144,6 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
 
-    private SpeechletResponse createHelloMessage()
-    {
-        String speechText = "Bender here. What's shaking?";
-
-        // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("ParkMe");
-        card.setContent(speechText);
-
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-
-        // Create reprompt
-        Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
-
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
-    }
-
-    private SpeechletResponse createOperationFailedMessage()
-    {
-        String speechText = "Sorry. I can't find anything around your right now.";
-
-        // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("ParkMe");
-        card.setContent(speechText);
-
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-
-        return SpeechletResponse.newTellResponse(speech, card);
-    }
-
     private SpeechletResponse createMessageToBook(Session session)
     {
         ParkingStructure parking = getParkingFrom(session);
@@ -197,7 +154,9 @@ public final class ParkingSpeechlet implements Speechlet
         }
         else
         {
-            AROMA.begin().titled("ParkingStructure Parsing Successful").send();
+            AROMA.begin().titled("ParkingStructure Parsing Successful")
+                .text(parking.toString())
+                .send();
         }
 
         String speechText = "Ok. I have reserved a spot for you using your credit card. ";
@@ -220,8 +179,6 @@ public final class ParkingSpeechlet implements Speechlet
 
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
-
-   
 
     void sendPushNotificationToNavigateTo(Location location)
     {
@@ -299,15 +256,19 @@ public final class ParkingSpeechlet implements Speechlet
             return SpeechletResponse.newTellResponse(new PlainTextOutputSpeech());
         }
 
-        async.submit(() -> 
-        {
-            this.sendPushNotificationToNavigateTo(parking.getLocation());
-        });
+        async.submit(() ->
+            {
+                this.sendPushNotificationToNavigateTo(parking.getLocation());
+            });
         
-        return newTellResponse(new PlainTextOutputSpeech());
+        String message = "Ok. I sent navigation instructions to your phone.";
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(message);
+        
+        return SpeechletResponse.newTellResponse(speech);
     }
-    
-     /**
+
+    /**
      * Creates and returns a {@code SpeechletResponse} with a welcome message.
      *
      * @return SpeechletResponse spoken and visual response for the given intent
@@ -332,4 +293,39 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
 
+    private SpeechletResponse createHelloMessage()
+    {
+        String speechText = "Bender here. What's shaking?";
+
+        // Create the Simple card content.
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        // Create reprompt
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(speech);
+
+        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    private SpeechletResponse createOperationFailedMessage()
+    {
+        String speechText = "Sorry. I can't find anything around your right now.";
+
+        // Create the Simple card content.
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
 }
