@@ -26,7 +26,6 @@ import tech.sirwellington.alexacarhackathon.parkwhiz.Location;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkWhizAPI;
 import tech.sirwellington.alexacarhackathon.parkwhiz.ParkingStructure;
 
-import static com.amazon.speech.speechlet.SpeechletResponse.newTellResponse;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.StringAssertions.nonEmptyString;
 import static tech.sirwellington.alexacarhackathon.APIs.AROMA;
@@ -181,6 +180,41 @@ public final class ParkingSpeechlet implements Speechlet
         return SpeechletResponse.newAskResponse(responseSpeech, reprompt, card);
     }
 
+    private SpeechletResponse createDirectionsMessage(Session session)
+    {
+        AROMA.begin()
+            .titled("Received Directions Intent")
+            .send();
+
+        ParkingStructure parking = getParkingFrom(session);
+        Location location = parking.getLocation() == null ? Location.DOWNTOWN_LA : parking.getLocation();
+
+        if (location == null)
+        {
+            AROMA.begin().titled("Info Missing")
+                .text("Missing Parking information from session")
+                .send();
+            
+            return createOperationFailedMessage();
+        }
+
+        async.submit(() ->
+            {
+                this.sendPushNotificationToNavigateTo(location);
+            });
+
+        String message = "Ok. I sent navigation instructions to your phone.";
+
+        SimpleCard card = new SimpleCard();
+        card.setTitle("ParkMe");
+        card.setContent(message);
+
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(message);
+
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+
     void sendPushNotificationToNavigateTo(Location location)
     {
         byte[] payload = createNotificationToOpen(location);
@@ -248,41 +282,6 @@ public final class ParkingSpeechlet implements Speechlet
         }
 
         return ParkingStructure.fromJSON(json.getAsJsonObject());
-    }
-
-    private SpeechletResponse createDirectionsMessage(Session session)
-    {
-        AROMA.begin()
-            .titled("Received Directions Intent")
-            .send();
-
-        ParkingStructure parking = getParkingFrom(session);
-        Location location = parking.getLocation() == null ? Location.DOWNTOWN_LA : parking.getLocation();
-
-        if (location == null)
-        {
-            AROMA.begin().titled("Info Missing")
-                .text("Missing Parking information from session")
-                .send();
-
-            return newTellResponse(new PlainTextOutputSpeech());
-        }
-
-        async.submit(() ->
-            {
-                this.sendPushNotificationToNavigateTo(location);
-            });
-
-        String message = "Ok. I sent navigation instructions to your phone.";
-
-        SimpleCard card = new SimpleCard();
-        card.setTitle("ParkMe");
-        card.setContent(message);
-
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(message);
-
-        return SpeechletResponse.newTellResponse(speech, card);
     }
 
     /**
