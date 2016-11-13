@@ -8,8 +8,10 @@
 package tech.sirwellington.alexacarhackathon;
 
 
+import com.notnoop.apns.ApnsService;
 import tech.aroma.client.Aroma;
 import tech.sirwellington.alchemy.http.AlchemyHttp;
+import tech.sirwellington.alexacarhackathon.notifications.Certificates;
 
 /**
  *
@@ -21,4 +23,5 @@ public final class APIs
 
     public static AlchemyHttp HTTP = AlchemyHttp.newDefaultInstance();
 
+    public static ApnsService APNS = Certificates.createPushService();
 }
