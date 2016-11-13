@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.GenerateDouble;
-import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -16,7 +15,6 @@ import static tech.sirwellington.alchemy.test.junit.runners.GenerateDouble.Type.
  *
  * @author SirWellington
  */
-@Repeat(10)
 @RunWith(AlchemyTestRunner.class)
 public class ParkWhizAPITest
 {
@@ -47,4 +45,11 @@ public class ParkWhizAPITest
         assertThat(parking, notNullValue());
     }
 
+    
+    @Test
+    public void testGetParkingBy() throws Exception
+    {
+        ParkingStructure parking = ParkWhizAPI.getParkingByURL("https://api.parkwhiz.com/p/los-angeles-parking/445-s-figueroa-st?start=1479024000&end=1479034800");
+        assertThat(parking, notNullValue());
+    }
 }
